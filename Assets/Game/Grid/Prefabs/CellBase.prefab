@@ -142,8 +142,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -214,8 +214,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1939290800296842121}
-  - component: {fileID: 3874023454655803235}
   - component: {fileID: 2492784384738170648}
+  - component: {fileID: 3874023454655803235}
+  - component: {fileID: 4013632100110646635}
   m_Layer: 0
   m_Name: CellBase
   m_TagString: Untagged
@@ -239,18 +240,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3874023454655803235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1939290800296842120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb32f19f629b44914b20d7b369f8eb28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &2492784384738170648
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -264,6 +253,43 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3874023454655803235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939290800296842120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb32f19f629b44914b20d7b369f8eb28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationController: {fileID: 4013632100110646635}
+--- !u!114 &4013632100110646635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939290800296842120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85682ef2200d490081d22308b9ab74e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textAppearDuration: 0.2
+  textDisappearDuration: 0.1
+  colorChangeDuration: 0.2
+  cellDeselectColor: {r: 0.8784314, g: 0.8784314, b: 0.8784314, a: 1}
+  cellSelectColor: {r: 1, g: 0.4392157, b: 0.2627451, a: 1}
+  selectScaleMultiplier: 1.1
+  selectScaleDuration: 0.15
+  deselectScaleMultiplier: 0.9
+  deselectScaleDuration: 0.1
+  textTransform: {fileID: 1939290799626402491}
+  cellSpriteRenderer: {fileID: 1939290801273790497}
+  visualTransform: {fileID: 1939290799178398614}
 --- !u!1 &1939290801273790499
 GameObject:
   m_ObjectHideFlags: 0
