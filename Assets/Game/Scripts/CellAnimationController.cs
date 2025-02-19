@@ -35,6 +35,7 @@ public class CellAnimationController : MonoBehaviour
         }
         
         PlayCellDeselectAnimation(true);
+        PlayTextHideAnimation(true);
     }
     
     [Button()]
