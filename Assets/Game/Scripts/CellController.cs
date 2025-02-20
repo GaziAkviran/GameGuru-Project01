@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 public class CellController : MonoBehaviour
 {
-    [SerializeField, Foldout("References")] CellAnimationController animationController;
+    [SerializeField, Foldout("References")] private CellAnimationController animationController;
+    
     private Vector2Int position;
     private bool isMarked;
     private IGridView gridView;
@@ -34,19 +37,19 @@ public class CellController : MonoBehaviour
 
     private void UpdateVisual()
     {
-        Transform xMark = transform.Find("Visual/CellSprite");
-        if (xMark != null)
+        if (isMarked)
         {
-            xMark.gameObject.SetActive(isMarked);
+            animationController.PlayCellSelectAnimation();
+        }
+        else
+        {
+            animationController.PlayCellDeselectAnimation();
         }
     }
 
     private void OnMouseDown()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        {
-            ToggleState();
-        }
+        ToggleState();
     }
 
     private void ToggleState()

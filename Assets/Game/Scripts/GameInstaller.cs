@@ -19,9 +19,7 @@ public class GameInstaller : MonoInstaller
         Container.BindFactory<Vector2Int, CellController, CellFactory>()
             .FromFactory<CellFactory>();
         
-        Container.Bind<IGridView>()
-            .To<GridView>()
-            .FromComponentInNewPrefab(gridViewPrefab)
-            .AsSingle();
+        var gridView = Container.InstantiatePrefabForComponent<GridView>(gridViewPrefab);
+        Container.Bind<IGridView>().To<GridView>().FromInstance(gridView);
     }
 }

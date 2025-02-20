@@ -12,11 +12,14 @@ public class GridView : MonoBehaviour, IGridView
 
     private CellFactory cellFactory;
     private GameObject[,] gridCells;
+    
+    private int gridSize = 5;
 
     private void Start()
     {
-        CreateGrid(5);
+        CreateGrid(gridSize);
     }
+
 
     [Inject]
     public void Construct(CellFactory cellFactory)
@@ -27,8 +30,9 @@ public class GridView : MonoBehaviour, IGridView
     public void CreateGrid(int size)
     {
         gridCells = new GameObject[size, size];
-        float startX = -(size * (cellSize + spacing)) / 2;
-        float startY = size * (cellSize + spacing) / 2;
+        float startX = -((size - 1) * (cellSize + spacing)) / 2;
+        float startY = ((size - 1) * (cellSize + spacing)) / 2;
+
 
         for (int row = 0; row < size; row++)
         {
@@ -41,7 +45,7 @@ public class GridView : MonoBehaviour, IGridView
 
     private void CreateCell(int row, int col, float startX, float startY)
     {
-        Vector3 position = new Vector3(startX + col * (cellSize + spacing), startY + row * (cellSize + spacing));
+        Vector3 position = new Vector3(startX + col * (cellSize + spacing), startY - row * (cellSize + spacing));
         
         var cellController = cellFactory.Create(new Vector2Int(row, col));
         cellController.transform.position = position;
