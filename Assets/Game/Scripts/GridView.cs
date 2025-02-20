@@ -14,6 +14,12 @@ public class GridView : MonoBehaviour, IGridView
     private GameObject[,] gridCells;
     
     private int gridSize = 5;
+    
+    private IGridMatchChecker matchChecker;
+
+    public int GridSize => gridSize;
+    public float CellSize => cellSize;
+    public float Spacing => spacing;
 
     private void Start()
     {
@@ -26,9 +32,15 @@ public class GridView : MonoBehaviour, IGridView
     {
         this.cellFactory = cellFactory;
     }
+    
+    public void SetMatchChecker(IGridMatchChecker checker)
+    {
+        this.matchChecker = checker;
+    }
 
     public void CreateGrid(int size)
     {
+        gridSize = size;
         gridCells = new GameObject[size, size];
         float startX = -((size - 1) * (cellSize + spacing)) / 2;
         float startY = ((size - 1) * (cellSize + spacing)) / 2;
@@ -62,6 +74,10 @@ public class GridView : MonoBehaviour, IGridView
             if (cellController != null)
             {
                 cellController.SetState(state);
+                if (state)
+                {
+                    matchChecker.CheckAndClearMatches(row, col);
+                }
             }
         }
     }
@@ -86,5 +102,23 @@ public class GridView : MonoBehaviour, IGridView
                 }
             }
         }
+    }
+    
+    public GameObject[,] GetGridCells()
+    {
+        return gridCells;
+    }
+    
+    public bool IsCellMarked(int row, int col)
+    {
+        if (gridCells == null || row < 0 || col < 0 || row >= gridCells.GetLength(0) || col >= gridCells.GetLength(1))
+            return false;
+
+        if (gridCells[row, col] != null)
+        {
+            var cellController = gridCells[row, col].GetComponent<CellController>();
+            return cellController != null && cellController.IsMarked;
+        }
+        return false;
     }
 }

@@ -16,6 +16,8 @@ public class CellController : MonoBehaviour
     private bool isMarked;
     private IGridView gridView;
 
+    public bool IsMarked => isMarked;
+
     [Inject]
     public void Construct(IGridView gridView)
     {

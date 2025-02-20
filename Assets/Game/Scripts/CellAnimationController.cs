@@ -161,6 +161,5 @@ public class CellAnimationController : MonoBehaviour
         cellSelectTween = visualTransform.DOScale(Vector3.one * deselectScaleMultiplier, deselectScaleDuration)
             .SetEase(Ease.OutQuad)
             .OnComplete(() => visualTransform.DOScale(Vector3.one, deselectScaleDuration).SetEase(Ease.InSine));
-        
     }
 }

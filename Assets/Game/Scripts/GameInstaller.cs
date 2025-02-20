@@ -20,9 +20,21 @@ public class GameInstaller : MonoInstaller
             .FromFactory<CellFactory>();
         
         var gridView = Container.InstantiatePrefabForComponent<GridView>(gridViewPrefab);
-        Container.Bind<IGridView>().To<GridView>().FromInstance(gridView);
-        
+        Container.Bind<IGridView>().To<GridView>().FromInstance(gridView).AsSingle();
+
         var gridUI = FindObjectOfType<GridUIController>();
         Container.Bind<GridUIController>().FromInstance(gridUI).AsSingle();
+    
+        var checker = new GridMatchChecker(gridView);
+        Container.Bind<IGridMatchChecker>()
+            .FromInstance(checker)
+            .AsSingle();
+        
+        gridView.SetMatchChecker(checker);
+        
+        var cameraController = FindObjectOfType<CameraController>();
+        Container.Bind<CameraController>().FromInstance(cameraController).AsSingle();
+        
+       
     }
 }

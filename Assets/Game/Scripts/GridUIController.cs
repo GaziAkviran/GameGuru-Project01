@@ -13,11 +13,12 @@ public class GridUIController : MonoBehaviour
     [SerializeField, Foldout("References")] private Button buildButton;
     
     private IGridView gridView;
-
+    private CameraController cameraController; 
     [Inject]
-    public void Construct(IGridView gridView)
+    public void Construct(IGridView gridView, CameraController cameraController)
     {
         this.gridView = gridView;
+        this.cameraController = cameraController;
     }
 
     private void Start()
@@ -30,6 +31,7 @@ public class GridUIController : MonoBehaviour
         if (int.TryParse(gridSizeInput.text, out int newSize) && newSize > 0)
         {
             gridView.RecalculateGrid(newSize);
+            cameraController.AdjustCameraSize(newSize);
         }
     }
 }
