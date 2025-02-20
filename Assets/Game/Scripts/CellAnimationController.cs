@@ -23,7 +23,7 @@ public class CellAnimationController : MonoBehaviour
     [SerializeField, Foldout("References")] private Transform textTransform;
     [SerializeField, Foldout("References")] private SpriteRenderer cellSpriteRenderer;
     [SerializeField, Foldout("References")] Transform visualTransform;
-    
+    [SerializeField, Foldout("References")] private ParticleSystem explosionParticle;
     
     private Tween textSelectTween, cellColorTween, cellSelectTween;
 
@@ -161,5 +161,44 @@ public class CellAnimationController : MonoBehaviour
         cellSelectTween = visualTransform.DOScale(Vector3.one * deselectScaleMultiplier, deselectScaleDuration)
             .SetEase(Ease.OutQuad)
             .OnComplete(() => visualTransform.DOScale(Vector3.one, deselectScaleDuration).SetEase(Ease.InSine));
+    }
+    
+    [Button()]
+    public void PlayBlastAnimation()
+    {
+        if (visualTransform == null)
+        {
+            Debug.LogError("Visual is null. Please assign a Transform");
+            return;
+        }
+        
+        visualTransform.DOShakeScale(0.3f, 0.2f)
+            .OnComplete(() =>
+            {
+                visualTransform.DOScale(Vector3.one * 1.2f, 0.15f).SetEase(Ease.OutQuad)
+                    .OnComplete(() =>
+                    {
+                        PlayExplosionEffect();
+                        visualTransform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InQuad)
+                            .OnComplete(() =>
+                            {
+                                //onComplete?.Invoke();
+                                ResetCell();
+                            });
+                    });
+            });
+    }
+    
+    private void PlayExplosionEffect()
+    {
+        if (explosionParticle != null)
+        {
+            explosionParticle.Play();
+        }
+    }
+    
+    private void ResetCell()
+    {
+        visualTransform.localScale = Vector3.one;
     }
 }
