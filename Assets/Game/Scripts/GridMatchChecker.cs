@@ -54,7 +54,18 @@ public class GridMatchChecker : IGridMatchChecker
     {
         foreach (var cell in matchedCells)
         {
-            gridView.UpdateCellVisual(cell.x, cell.y, false);
+            var cellObject = gridView.GetGridCells()[cell.x, cell.y];
+            if (cellObject != null)
+            {
+                var cellController = cellObject.GetComponent<CellController>();
+                if (cellController != null)
+                {
+                    cellController.PlayBlastEffect(() => 
+                    {
+                        gridView.UpdateCellVisual(cell.x, cell.y, false);
+                    });
+                }
+            }
         }
     }
 

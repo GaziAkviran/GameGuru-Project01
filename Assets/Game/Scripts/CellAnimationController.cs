@@ -164,7 +164,7 @@ public class CellAnimationController : MonoBehaviour
     }
     
     [Button()]
-    public void PlayBlastAnimation()
+    public void PlayBlastAnimation(Action onComplete = null)
     {
         if (visualTransform == null)
         {
@@ -182,7 +182,7 @@ public class CellAnimationController : MonoBehaviour
                         visualTransform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InQuad)
                             .OnComplete(() =>
                             {
-                                //onComplete?.Invoke();
+                                onComplete?.Invoke();
                                 ResetCell();
                             });
                     });

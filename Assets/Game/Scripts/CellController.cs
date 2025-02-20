@@ -60,4 +60,10 @@ public class CellController : MonoBehaviour
         UpdateVisual();
         gridView.UpdateCellVisual(position.x, position.y, isMarked);
     }
+    
+    public void PlayBlastEffect(Action onComplete)
+    {
+        animationController.PlayBlastAnimation(onComplete);
+    }
+
 }
