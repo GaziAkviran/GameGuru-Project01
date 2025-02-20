@@ -5,11 +5,16 @@ using Zenject;
 
 public class GridMatchChecker : IGridMatchChecker
 {
+    private int matchCount = 0;
     private readonly IGridView gridView;
+    private GridUIController gridUIController;
+
+    public int MatchCount => matchCount;
     
-    public GridMatchChecker(IGridView gridView)
+    public GridMatchChecker(IGridView gridView, GridUIController gridUIController)
     {
         this.gridView = gridView;
+        this.gridUIController = gridUIController;
     }
 
     public void CheckAndClearMatches(int row, int col)
@@ -52,6 +57,12 @@ public class GridMatchChecker : IGridMatchChecker
 
     private void ClearMatchedCells(HashSet<Vector2Int> matchedCells)
     {
+        if (matchedCells.Count >= 3)
+        {
+            matchCount++;
+            gridUIController.UpdateMatchCount();
+        }
+        
         foreach (var cell in matchedCells)
         {
             var cellObject = gridView.GetGridCells()[cell.x, cell.y];
@@ -108,5 +119,10 @@ public class GridMatchChecker : IGridMatchChecker
     private bool IsMarked(int row, int col)
     {
         return gridView.IsCellMarked(row, col);
+    }
+
+    public void ResetMatchCount()
+    {
+        matchCount = 0;
     }
 }

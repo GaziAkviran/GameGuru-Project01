@@ -21,11 +21,12 @@ public class GameInstaller : MonoInstaller
         
         var gridView = Container.InstantiatePrefabForComponent<GridView>(gridViewPrefab);
         Container.Bind<IGridView>().To<GridView>().FromInstance(gridView).AsSingle();
-
+        
+        
         var gridUI = FindObjectOfType<GridUIController>();
         Container.Bind<GridUIController>().FromInstance(gridUI).AsSingle();
     
-        var checker = new GridMatchChecker(gridView);
+        var checker = new GridMatchChecker(gridView, gridUI);
         Container.Bind<IGridMatchChecker>()
             .FromInstance(checker)
             .AsSingle();

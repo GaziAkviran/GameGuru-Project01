@@ -84,6 +84,7 @@ public class GridView : MonoBehaviour, IGridView
 
     public void RecalculateGrid(int size)
     {
+        matchChecker.ResetMatchCount();
         CleanupCurrentGrid();
         CreateGrid(size);
     }
